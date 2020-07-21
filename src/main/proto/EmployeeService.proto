@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package com.mozammal.springbootrpcrest;
+
+option java_multiple_files = true;
+
+option java_package = "com.mozammal.proto.code";
+
+message AddEmployeeRequest {
+  string name = 1;
+  string role = 2;
+}
+
+message FindAllEmployeeRequest {
+}
+
+message FindEmployeeByIdRequest {
+   int64 id = 1;
+}
+
+message DeleteEmployeeByIdRequest {
+   int64 id = 1;
+}
+
+message UpdateEmployeeByRequest {
+   int64 id = 1;
+   string name = 2;
+   string role = 3;
+}
+
+message AddEmployeeResponse {
+  int64 id = 1;
+}
+
+message UpdateEmployeeByResponse {
+   int64 id = 1;
+
+}
+
+message DeleteEmployeeResponse {
+}
+
+message EmployeeEntity {
+   int64 id = 1;
+   string name = 2;
+   string role = 3;
+}
+
+service EmployeeService {
+  rpc add(AddEmployeeRequest) returns (AddEmployeeResponse);
+  rpc updateById(UpdateEmployeeByRequest) returns (UpdateEmployeeByResponse);
+  rpc findAll(FindAllEmployeeRequest) returns (stream EmployeeEntity);
+  rpc findById(FindEmployeeByIdRequest) returns (EmployeeEntity);
+  rpc delete(DeleteEmployeeByIdRequest) returns (DeleteEmployeeResponse);
+}
